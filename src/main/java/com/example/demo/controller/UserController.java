@@ -66,13 +66,20 @@ public class UserController {
         return Result.success("登录成功",userService.login(userDTO));
 
     }
+    @GetMapping("getUserInfo")
+    public Result get(@RequestParam("id") Integer id){
+        return new Result(Constants.CODE_200,"查询成功",userMapper.getById(id));
+
+    }
 
     @RequestMapping(value = "save",method = PUT)
     public Result save(@RequestBody OwnInfo ownInfo){
-        //过滤
-        UserInfo userInfo = new UserInfo(ownInfo.getId(),ownInfo.getUsername(),ownInfo.getAvatar(),ownInfo.getAge());
-        //新增或者更新
-        return userService.saveUser(userInfo);
+//        //过滤
+//        UserInfo userInfo = new UserInfo(ownInfo.getId(),ownInfo.getUsername(),ownInfo.getAvatar(),ownInfo.getAge());
+//        //新增或者更新
+//        return userService.saveUser(userInfo);
+        userService.saveOwnUser(ownInfo);
+        return Result.success("修改成功",ownInfo);
     }
     @RequestMapping(value = "manager/save",method = PUT)
     public Result save(@RequestBody UserInfo userInfo){
@@ -81,9 +88,9 @@ public class UserController {
         return userService.managerSaveUser(userInfo);
     }
 
-    @GetMapping("get")
-    public List<UserInfo> getUserInfo(){
-        return  null;
+    @GetMapping("manager/get")
+    public Result getUserInfo(){
+        return new Result(Constants.CODE_200,"查询成功",userMapper.getAll());
     }
 
 
@@ -93,7 +100,7 @@ public class UserController {
         return userMapper.deleteById(id);
     }
 
-    @CachePut(value = "attend",key="'frontAll'")
+   // @CachePut(value = "attend",key="'frontAll'")
     @PostMapping("attendance")
     public Result attend(@RequestBody AttendDTO attendDTO){
 
@@ -103,10 +110,26 @@ public class UserController {
 
     //@CacheEvist删除的时候用，清除缓存
     @GetMapping("getAttendance")
-    @Cacheable(value="attend", key="'frontAll'")
-    public Result attends(@RequestBody AttendDTO attendDTO){
-        return attendService.getOwnAttend(attendDTO.getId());
+   // @Cacheable(value="attend", key="'frontAll'")
+    public Result attends(@RequestParam int id){
+       // return attendService.getOwnAttend(attendDTO.getId());
+        return attendService.getOwnAttend(id);
     }
 
+    @GetMapping("getAllAttend")
+    public Result attends(){
+       return Result.success("查询成功",attendService.getAllAtend());
+    }
+
+
+    @GetMapping("getDepLast")
+    public Result getLastInfo(){
+        return Result.success("查询成功",attendService.getDepLast());
+    }
+
+    @GetMapping("countLast")
+    public Result getCountLast(){
+        return Result.success("查询成功",attendService.getCountLast());
+    }
 
 }

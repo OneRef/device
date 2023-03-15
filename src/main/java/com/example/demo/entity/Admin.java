@@ -7,25 +7,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.format.DateTimeFormatter;
-
 //对应数据库
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName(value = "tbl_attend")
-public class Attend {
+@TableName(value = "tbl_admin")
+public class Admin {
     @TableId(type = IdType.AUTO)
     private int id;
-    private String realname;
-    private String time;
-    private int late;
-    private String date;
-    private String photo;
-    private int date_year;
-    private int date_month;
-    private int date_day;
-    private int id_dep;
-    private String department;
+    private String username;
+    private String password;
+    private int grant; //是否拥有创建管理员权限
 }
-
