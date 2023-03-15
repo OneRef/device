@@ -30,7 +30,6 @@ public class DeviceController {
 
     @PostMapping("insert")
     public Result saveNewDevice(@RequestBody Device device){
-
         return new Result(Constants.CODE_200,"保存成功", deviceService.insert(device));
     }
 }

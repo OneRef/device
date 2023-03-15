@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.common.Constants;
+import com.example.demo.common.Result;
 import com.example.demo.entity.Department;
 import com.example.demo.entity.UserInfo;
 import com.example.demo.mapper.DepartmentMapper;
@@ -21,10 +23,12 @@ public class DepartmentController {
     @Autowired
     private DepartmentService departmentService;
 
-//    @PostMapping("get")
-//   public List<Department> getDepart(){
-//        return  departmentService.;
-//    }
+    @GetMapping("get")
+    private Result get(){
+
+        departmentMapper.updateNumber();//通过查询employee表,更新部门人数信息
+     return new Result(Constants.CODE_200,"获取成功", departmentMapper.getAll());
+    }
 
     @PostMapping("save")
     public boolean save(@RequestBody Department department){

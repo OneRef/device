@@ -14,7 +14,13 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.URLEncoder;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 文件上传相关接口
@@ -55,8 +61,8 @@ public class FileController {
 
 
         file.transferTo(uploadFile);
-
-        String url="http://localhost:8001/file/" + fileUUID;
+       // System.out.println("ip地址： " +getIp().toArray()[2]);
+        String url="http://"+getIp().toArray()[2]+":8001/file/" + fileUUID;
         //存储数据库
         Files saveFile = new Files();
         saveFile.setName(originalFilename);
@@ -89,6 +95,23 @@ public class FileController {
 
 
 
+
+    }
+    public  Set<String> getIp(){ //获取ip地址
+        Set<String> set = new HashSet<String>();
+        try {
+            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
+                NetworkInterface intf = en.nextElement();
+                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+                    InetAddress inetAddress = enumIpAddr.nextElement();
+                    if (!inetAddress.isLoopbackAddress() && !inetAddress.isLinkLocalAddress() && inetAddress.isSiteLocalAddress()) {
+                        set.add(inetAddress.getHostAddress().toString());
+                    }
+                }
+            }
+        } catch (SocketException ex) {
+        }
+        return set;
     }
 
 }
