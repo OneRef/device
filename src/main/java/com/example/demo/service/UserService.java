@@ -14,10 +14,14 @@ import com.example.demo.exception.ServiceException;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.utils.TokenUtils;
 import org.apache.catalina.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService extends ServiceImpl<UserMapper,UserInfo> {
+    @Autowired
+    private UserMapper userMapper;
+
     public String msg=null;
     public Result saveUser(UserInfo userInfo) {
          saveOrUpdate(userInfo);
@@ -25,6 +29,9 @@ public class UserService extends ServiceImpl<UserMapper,UserInfo> {
          Result result=new Result(Constants.CODE_200,"修改成功",ownInfo);
          return result;
     }
+
+
+
 
     public LoginData login(UserDTO userDTO) {
         UserInfo one = getUserInfo(userDTO);
@@ -104,4 +111,7 @@ public class UserService extends ServiceImpl<UserMapper,UserInfo> {
         }catch(Exception e){throw new ServiceException(Constants.CODE_600,"查询用户名失败");}
     }
 
+    public void saveOwnUser(OwnInfo ownInfo) {
+        userMapper.saveOwn(ownInfo.getId(),ownInfo.getUsername(),ownInfo.getAge(),ownInfo.getAvatar());
+    }
 }
