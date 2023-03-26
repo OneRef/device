@@ -95,8 +95,8 @@ public class UserController {
 
 
 
-    @DeleteMapping("/{id}")
-    public Integer delete(@PathVariable Integer id){
+    @DeleteMapping("delete")
+    public Integer delete(@RequestParam Integer id){
         return userMapper.deleteById(id);
     }
 

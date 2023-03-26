@@ -40,8 +40,8 @@ public class AdminController {
         return userService.managerSaveUser(userInfo);
     }
 
-    @DeleteMapping("delete/{id}")
-    public Result delete(@PathVariable Integer id){
+    @DeleteMapping("delete")
+    public Result delete(@RequestParam Integer id){
         userMapper.deleteById(id);
         return new Result(Constants.CODE_200,"删除成功or该用户不存在",id);
 
