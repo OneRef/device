@@ -9,7 +9,6 @@ import lombok.Data;
 public class UserDTO {   //来自接口参数
     private int id;
     private String username;
-
     private String password;
     private String realname;
     private int idep;
@@ -19,7 +18,7 @@ public class UserDTO {   //来自接口参数
     private String avatar;
     private int salary;
     private  String entryyear;//入职年份
-    private String ismanager ;
+    private String role ;
 
     private String token;
 

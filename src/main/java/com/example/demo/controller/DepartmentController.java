@@ -35,4 +35,9 @@ public class DepartmentController {
         //新增或者更新
         return departmentService.saveDepartment(department);
     }
+
+    @GetMapping("getEmployee")
+    public Result getEm(@RequestParam int depId){
+        return departmentService.getEmployee( depId);
+    }
 }

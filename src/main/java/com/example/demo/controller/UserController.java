@@ -15,11 +15,7 @@ import com.example.demo.service.UserService;
 import com.example.demo.utils.R;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 import static com.example.demo.common.Constants.CODE_200;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
@@ -42,13 +38,17 @@ public class UserController {
     public Result register(@RequestBody UserDTO userDTO){
         String username = userDTO.getUsername();
         String password = userDTO.getPassword();
-        String realname = userDTO.getRealname();//真实姓名
-        int idep = userDTO.getIdep();//部门编号
-        int age = userDTO.getAge();//部门编号
-        String gender = userDTO.getGender();//性别
+        String role     = userDTO.getRole();
+//        String realname = userDTO.getRealname();//真实姓名
+//        int idep = userDTO.getIdep();//部门编号
+//        int age = userDTO.getAge();//部门编号
+//        String gender = userDTO.getGender();//性别
 
-        if(StrUtil.isBlank(username) || StrUtil.isBlank(password)){
+        if(StrUtil.isBlank(username) || StrUtil.isBlank(password) ){
             return  Result.error(Constants.CODE_400,"参数错误");
+        }
+        if( StrUtil.isBlank(role)){
+            return Result.error(Constants.CODE_400,"没有选择角色");
         }
         Result result=new Result(CODE_200,"注册成功",userService.register(userDTO));
         return result;

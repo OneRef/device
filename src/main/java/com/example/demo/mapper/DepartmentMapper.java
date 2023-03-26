@@ -1,6 +1,7 @@
 package com.example.demo.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.example.demo.common.Result;
 import com.example.demo.entity.Department;
 import com.example.demo.entity.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
@@ -16,4 +17,7 @@ public interface DepartmentMapper extends BaseMapper<Department> {
 
     @Update("update tbl_department set number = (select count(*) from tbl_employee where tbl_department.id=tbl_employee.id_dep)")
     void updateNumber();
+
+    @Select("SELECT * from tbl_employee where  id_dep = #{depId}")
+    List<UserInfo> getEmployee(int depId);
 }

@@ -50,10 +50,13 @@ public class AdminController {
     public Result register(@RequestBody UserDTO userDTO){
         String username = userDTO.getUsername();
         String password = userDTO.getPassword();
-
+        String role     = userDTO.getRole();
 
         if(StrUtil.isBlank(username) || StrUtil.isBlank(password)){
             return  Result.error(Constants.CODE_400,"参数错误");
+        }
+        if( StrUtil.isBlank(role)){
+            return Result.error(Constants.CODE_400,"没有选择角色");
         }
         return new Result(CODE_200,"注册成功",userService.register(userDTO));
 

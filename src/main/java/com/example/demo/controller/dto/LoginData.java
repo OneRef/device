@@ -15,5 +15,5 @@ public class LoginData {
     private int salary;
     private  String entryyear;//入职年份
     private String token;
-    private String ismanager ;
+    private String role ;
 }

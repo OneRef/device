@@ -25,10 +25,8 @@ public class UserInfo {
     private int    age       ;
     private int    salary    ;
     private String entryyear ;
-
-    private String isnew     ;
     private String avatar     ;
-    private String ismanager     ;
+    private String role    ;
 
     //Own构造器
     public UserInfo(int id,String username,String avatar,int age){

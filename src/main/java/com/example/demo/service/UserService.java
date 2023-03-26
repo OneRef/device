@@ -51,7 +51,7 @@ public class UserService extends ServiceImpl<UserMapper,UserInfo> {
             loginData.setAge(userDTO.getAge());
             loginData.setSalary(userDTO.getSalary());
             loginData.setEntryyear(userDTO.getEntryyear());
-            loginData.setIsmanager(userDTO.getIsmanager());
+            loginData.setRole(userDTO.getRole());
             loginData.setUsername(userDTO.getUsername());
             loginData.setToken(userDTO.getToken());
 
